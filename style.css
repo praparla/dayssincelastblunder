@@ -33,6 +33,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden; /* prevent table overflow from widening the page */
 }
 
 /* Nav */
@@ -139,6 +140,7 @@ main {
   border-radius: 12px;
   border: 1px solid var(--border);
   background: var(--surface);
+  position: relative;
 }
 
 table {
@@ -270,6 +272,28 @@ td:nth-child(3) {
 }
 
 /* Responsive */
+
+/* Tablet (601px – 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+  .hero {
+    min-height: 60vh;
+    padding: 60px 24px 44px;
+  }
+
+  .table-section {
+    padding: 0 20px 64px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .group-select {
+    max-width: 140px;
+  }
+}
+
+/* Mobile (≤600px) */
 @media (max-width: 600px) {
   .hero {
     min-height: 55vh;
@@ -290,10 +314,43 @@ td:nth-child(3) {
 
   thead th,
   tbody td {
-    padding: 12px 14px;
+    padding: 10px 10px;
   }
 
   table {
     font-size: 14px;
+  }
+
+  /* Hide Responsible column on mobile so Severity is visible */
+  th:nth-child(3),
+  td:nth-child(3) {
+    display: none;
+  }
+
+  /* Compact severity pill */
+  .severity-label {
+    font-size: 10px;
+    padding: 2px 7px;
+  }
+
+  /* Fade hint at right edge of table to signal horizontal scroll */
+  .table-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 28px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.75));
+    pointer-events: none;
+    border-radius: 0 12px 12px 0;
+  }
+
+}
+
+/* Very small mobile (≤380px): drop nav subtitle to protect group selector space */
+@media (max-width: 380px) {
+  .nav-subtitle {
+    display: none;
   }
 }
