@@ -5,6 +5,7 @@ import assert from "assert/strict";
 import { createRequire } from "module";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { readFileSync } from "fs";
 
 const require = createRequire(import.meta.url);
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -156,6 +157,52 @@ ok("renders a span with severity-label class", () => {
   const html = renderSeverity(3);
   assert.ok(html.startsWith('<span class="severity-label'));
   assert.ok(html.endsWith("</span>"));
+});
+
+// ── CSS responsive rules ──────────────────────────────────────────────────────
+console.log("\nCSS responsive rules:");
+
+const css = readFileSync(join(root, "style.css"), "utf8");
+
+ok("body has overflow-x: hidden (prevents page-width expansion from table)", () => {
+  // Must appear inside the body rule, not just anywhere
+  assert.match(css, /body\s*\{[^}]*overflow-x:\s*hidden/s);
+});
+
+ok("tablet breakpoint exists at min-width 601px and max-width 900px", () => {
+  assert.match(css, /@media\s*\(min-width:\s*601px\)\s*and\s*\(max-width:\s*900px\)/);
+});
+
+ok("tablet breakpoint sets hero min-height to 60vh", () => {
+  const tabletBlock = css.match(/@media\s*\(min-width:\s*601px\)[^{]*\{([\s\S]*?)(?=@media|\z)/)?.[1] ?? "";
+  assert.match(tabletBlock, /min-height:\s*60vh/);
+});
+
+ok("tablet breakpoint sets group-select max-width", () => {
+  const tabletBlock = css.match(/@media\s*\(min-width:\s*601px\)[^{]*\{([\s\S]*?)(?=@media)/)?.[1] ?? "";
+  assert.match(tabletBlock, /group-select[\s\S]*?max-width/);
+});
+
+ok("mobile breakpoint hides Responsible column (th:nth-child(3) display:none)", () => {
+  assert.match(css, /th:nth-child\(3\)[^}]*display:\s*none/s);
+});
+
+ok("mobile breakpoint hides Responsible column (td:nth-child(3) display:none)", () => {
+  assert.match(css, /td:nth-child\(3\)[^}]*display:\s*none/s);
+});
+
+ok("mobile breakpoint has scroll-indicator gradient on .table-wrapper::after", () => {
+  assert.match(css, /\.table-wrapper::after/);
+  assert.match(css, /linear-gradient\(to right/);
+});
+
+ok(".table-wrapper has position: relative (required for ::after scroll indicator)", () => {
+  assert.match(css, /\.table-wrapper\s*\{[^}]*position:\s*relative/s);
+});
+
+ok("≤380px breakpoint hides .nav-subtitle", () => {
+  assert.match(css, /@media\s*\(max-width:\s*380px\)/);
+  assert.match(css, /nav-subtitle[^}]*display:\s*none/s);
 });
 
 // ── Summary ───────────────────────────────────────────────────────────────────

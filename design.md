@@ -290,8 +290,10 @@ Base unit: **4px**
 
 | Name | Width | Key Changes |
 |------|-------|-------------|
-| Mobile | ≤600px | Hero padding reduces (60px/40px), `.hero-blunder` drops to 15px, table cells reduce to 12px/14px padding, section padding reduces to 16px, section title drops to 22px |
-| Desktop | >600px | Default styles apply |
+| Very small mobile | ≤380px | Nav subtitle ("Blunder Tracker") hidden to protect group selector space |
+| Mobile | ≤600px | Hero 55vh / 60px 20px 40px padding, `.hero-blunder` 15px, table cells 10px padding, section padding 16px, section title 22px; Responsible column hidden; severity pill compacted (10px / 2px 7px); fade gradient on table right edge |
+| Tablet | 601px – 900px | Hero 60vh / 60px 24px 44px padding, section title 24px, group selector max-width 140px, table padding 20px side |
+| Desktop | >900px | Default styles apply |
 
 ### Touch Targets
 - All interactive elements (future buttons, links) must be minimum **44×44px** tap area.
@@ -299,12 +301,19 @@ Base unit: **4px**
 
 ### Collapsing Strategy
 
-| Component | Mobile behavior |
-|-----------|----------------|
-| Nav | Shrinks padding; both text elements stay on one line (short enough) |
-| Hero | Reduces `min-height` to `55vh`; number scales via `clamp()` automatically |
-| Table | Horizontal scroll via `overflow-x: auto` on `.table-wrapper` — never collapse columns |
-| Footer | No change |
+| Component | Mobile behavior | Tablet behavior |
+|-----------|----------------|-----------------|
+| Nav | `.nav-subtitle` hidden at ≤380px to protect selector; all elements fit at 375px+ | All elements visible; `max-width: 140px` on selector prevents overflow |
+| Hero | `min-height: 55vh`; number scales via `clamp()` automatically | `min-height: 60vh`; reduced top padding |
+| Table | Responsible column (`th/td:nth-child(3)`) hidden; Severity visible without scroll; fade gradient on right edge signals any remaining overflow | All 4 columns visible; no horizontal scroll |
+| Footer | No change | No change |
+
+### Table Column Priority (mobile)
+When the viewport is too narrow to show all columns, Responsible is the first to go. Priority order: **Date → Blunder → Severity → Responsible**.
+
+### Overflow Safety
+- `body { overflow-x: hidden }` prevents table content from expanding page width and misaligning the sticky nav.
+- `.table-wrapper { position: relative }` is required for the `::after` scroll-indicator pseudo-element to position correctly.
 
 ---
 
