@@ -1,38 +1,11 @@
-// === Blunder Data ===
-// Each blunder: { date, description, responsible, severity (1-5) }
-const BLUNDERS = [
-  {
-    date: "2026-04-05",
-    description: "Traded Angel Reese to Atlanta Dream for what projects to be late-round, low-value picks — giving away the franchise's most marketable player and on-court force.",
-    responsible: "GM Jeff Paglioca",
-    severity: 5,
-  },
-  {
-    date: "2026-03-15",
-    description: "Protected low-quality roster players in the Toronto Tempo expansion draft instead of shielding key assets, exposing the team to unnecessary talent loss.",
-    responsible: "Front Office",
-    severity: 4,
-  },
-  {
-    date: "2025-12-10",
-    description: "Suspended Angel Reese for publicly expressing frustration with the organization's direction — alienating the team's biggest star and fanbase.",
-    responsible: "GM Jeff Paglioca",
-    severity: 5,
-  },
-  {
-    date: "2024-04-15",
-    description: "Traded up in the 2024 draft to select Angel Reese at #7 overall, surrendering the pick that became the 2026 #2 overall — only to later trade her away for scraps.",
-    responsible: "Front Office",
-    severity: 5,
-  },
-];
+// === State ===
+let currentGroupId = Object.keys(GROUPS)[0];
 
-// === Render ===
+// === Render Helpers ===
 function daysSince(dateStr) {
   const blunderDate = new Date(dateStr + "T00:00:00");
   const now = new Date();
-  const diff = now - blunderDate;
-  return Math.max(0, Math.floor(diff / (1000 * 60 * 60 * 24)));
+  return Math.max(0, Math.floor((now - blunderDate) / (1000 * 60 * 60 * 24)));
 }
 
 function formatDate(dateStr) {
@@ -49,32 +22,48 @@ function renderSeverity(level) {
   for (let i = 1; i <= 5; i++) {
     html += `<span class="severity-dot${i <= level ? " active" : ""}"></span>`;
   }
-  html += "</div>";
-  return html;
+  return html + "</div>";
 }
 
-function init() {
-  // Sort by date descending (most recent first)
-  const sorted = [...BLUNDERS].sort(
+// === Group Selector ===
+function populateGroupSelector() {
+  const select = document.getElementById("group-select");
+  if (!select) return;
+  select.innerHTML = Object.values(GROUPS)
+    .map((g) => `<option value="${g.id}">${g.name}</option>`)
+    .join("");
+  select.value = currentGroupId;
+  select.addEventListener("change", (e) => {
+    currentGroupId = e.target.value;
+    render();
+  });
+}
+
+// === Render ===
+function render() {
+  const group = GROUPS[currentGroupId];
+  const sorted = [...group.blunders].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
-  // Hero: days since the most recent blunder
   const latest = sorted[0];
-  const days = daysSince(latest.date);
-
-  document.getElementById("days-count").textContent = days;
+  document.getElementById("days-count").textContent = daysSince(latest.date);
   document.getElementById("latest-blunder").textContent =
     `Latest: ${latest.description}`;
 
-  // Table
+  document.title = `Days Since Last Blunder — ${group.name}`;
+
   const tbody = document.getElementById("blunder-body");
   tbody.innerHTML = sorted
     .map(
       (b) => `
     <tr>
       <td>${formatDate(b.date)}</td>
-      <td>${b.description}</td>
+      <td>${b.description}${
+        b.source
+          ? ` <a class="source-link" href="${b.source}" target="_blank" rel="noopener noreferrer">↗</a>`
+          : ""
+      }</td>
       <td>${b.responsible}</td>
       <td>${renderSeverity(b.severity)}</td>
     </tr>
@@ -83,4 +72,14 @@ function init() {
     .join("");
 }
 
-init();
+function init() {
+  populateGroupSelector();
+  render();
+}
+
+// Node.js compatibility for tests
+if (typeof module !== "undefined") {
+  module.exports = { daysSince, formatDate, renderSeverity };
+} else {
+  init();
+}

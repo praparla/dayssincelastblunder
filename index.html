@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Days Since Last Blunder — Chicago Sky</title>
-  <meta name="description" content="Tracking the Chicago Sky front office's decision-making. How long since the last blunder?">
+  <title>Days Since Last Blunder</title>
+  <meta name="description" content="Tracking front office blunders. How long since the last one?">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -13,7 +13,9 @@
 <body>
   <nav class="nav">
     <span class="nav-logo">DSLB</span>
-    <span class="nav-subtitle">Chicago Sky Blunder Tracker</span>
+    <span class="nav-subtitle">Blunder Tracker</span>
+    <div class="nav-spacer"></div>
+    <select id="group-select" class="group-select" aria-label="Select group"></select>
   </nav>
 
   <main>
@@ -43,9 +45,10 @@
   </main>
 
   <footer class="footer">
-    <p>This is a fan-made accountability tracker. Not affiliated with the WNBA or Chicago Sky.</p>
+    <p>This is a fan-made accountability tracker. Not affiliated with any league or team.</p>
   </footer>
 
+  <script src="blunders-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
