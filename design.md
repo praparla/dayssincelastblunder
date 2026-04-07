@@ -1,6 +1,6 @@
 # DESIGN.md — Days Since Last Blunder
 
-> Design system for the Chicago Sky Blunder Tracker. Follows the awesome-design-md format.
+> Design system for the DSLB multi-group blunder tracker. Follows the awesome-design-md format.
 > Reference: https://github.com/VoltAgent/awesome-design-md
 
 ---
@@ -107,7 +107,41 @@ Loaded from Google Fonts. System font fallbacks ensure no layout shift before lo
 }
 ```
 
-States: always visible, always sticky. No mobile collapse — the nav is two text elements that fit on one line.
+The nav uses `flex` with a `.nav-spacer` (flex: 1) to push the group selector to the far right.
+
+States: always visible, always sticky. No mobile collapse — all elements fit on one line at ≥320px.
+
+### Group Selector
+
+```css
+.group-select {
+  appearance: none; -webkit-appearance: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  color: var(--text-primary);
+  font-family: inherit;
+  font-size: 13px; font-weight: 500; letter-spacing: -0.01em;
+  padding: 5px 28px 5px 12px;
+  /* chevron via inline SVG background-image */
+}
+.group-select:hover  { border-color: rgba(65, 143, 222, 0.3); }
+.group-select:focus  { outline: 2px solid var(--sky-blue); outline-offset: 2px; }
+```
+
+Use a pill shape (`border-radius: 20px`) consistent with the badge style in §9. The custom chevron arrow uses `--text-secondary` stroke so it blends with the muted palette. The selector is populated by `app.js` from `GROUPS` keys — never hardcode options in HTML.
+
+### Source Link
+
+```css
+.source-link {
+  color: var(--sky-blue);
+  font-size: 12px; opacity: 0.7; margin-left: 4px;
+}
+.source-link:hover { opacity: 1; }
+```
+
+Inline `↗` after blunder description. Only rendered when `blunder.source !== null`.
 
 ### Hero Number
 

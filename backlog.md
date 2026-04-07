@@ -8,10 +8,14 @@
 
 | Priority | Item | Notes |
 |----------|------|-------|
-| High | **Add source URLs to each blunder** | Each blunder entry should include a `source` URL linking to the news article or press release. Required for credibility. |
-| High | **Shareable blunder permalinks** | `?blunder=2` in URL highlights that row and pre-fills OG meta for sharing a specific blunder |
+| ✅ Done | **Group switcher** | Nav `<select>` swaps between GROUPS in `blunders-data.js`. Chicago Sky live; add more groups by extending the GROUPS object. |
+| ✅ Done | **Multi-group data module** | `blunders-data.js` with flexible schema: id, source, verified, tags per blunder. |
+| ✅ Done | **`/refresh-blunders` skill** | Slash command for web-searching blunders (recent + historical), sourcing existing entries, and proposing updates to `blunders-data.js`. |
+| High | **Add more groups** | Expand `GROUPS` in `blunders-data.js` with Tier 1 spin-off trackers (Knicks, Boeing, etc.) — see spin-off section below. |
+| High | **Add source URLs to each blunder** | Run `/refresh-blunders` to find and verify source URLs. Schema already supports `source` field. |
+| High | **Shareable blunder permalinks** | `?blunder=sky-001` in URL highlights that row and pre-fills OG meta for sharing a specific blunder |
 | Medium | **Streak counter** — record longest days-since streak | Show "Longest streak ever: X days (broken on [date])" in the hero section |
-| Medium | **Auto-update via GitHub Actions** | Nightly CI job that pushes a `data.json` file; page reads it on load. Keeps data fresh without redeploy. |
+| Medium | **Auto-update via GitHub Actions** | Nightly CI job that runs `/refresh-blunders all` and commits new data. |
 | Medium | **Severity filter** — filter table to severity ≥ N | Dropdown or pill buttons above the table |
 | Medium | **Responsible party filter** — filter by person/dept | Useful once the blunder log grows beyond ~10 entries |
 | Low | **Dark/light mode toggle** | Already dark; add light mode for accessibility |
@@ -74,6 +78,6 @@ Ranked by: **Virality × Audience Size ÷ Build Complexity**
 
 | Priority | Item | Notes |
 |----------|------|-------|
-| **High** | **Shared codebase template** | One repo, multiple trackers via `config.json` (team name, colors, blunders array). Ship 10 spin-offs from one build. |
+| **High** | **Shared codebase template** | ✅ Partially done: `blunders-data.js` groups model is the foundation. Extend with per-group color themes and per-group OG meta. |
 | **Medium** | **Auto-submit to Hacker News / ProductHunt** | Tracker for when to submit — Saturday afternoons, not Monday mornings |
 | **Low** | **Tracker directory landing page** | blunders.lol — lists all active tracker sites with live counters |
