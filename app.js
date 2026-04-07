@@ -18,11 +18,18 @@ function formatDate(dateStr) {
 }
 
 function renderSeverity(level) {
-  let html = '<div class="severity">';
-  for (let i = 1; i <= 5; i++) {
-    html += `<span class="severity-dot${i <= level ? " active" : ""}"></span>`;
+  let label, tier;
+  if (level <= 2) {
+    label = "Fine. We're Fine.";
+    tier = 1;
+  } else if (level <= 4) {
+    label = "The Group Chat is Not Okay";
+    tier = 2;
+  } else {
+    label = "Erase the Tape";
+    tier = 3;
   }
-  return html + "</div>";
+  return `<span class="severity-label tier-${tier}">${label}</span>`;
 }
 
 // === Group Selector ===
