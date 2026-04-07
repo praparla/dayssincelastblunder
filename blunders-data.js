@@ -33,8 +33,8 @@ const GROUPS = {
         description:
           "Protected low-quality roster players in the Toronto Tempo expansion draft instead of shielding key assets, exposing the team to unnecessary talent loss.",
         responsible: "Front Office",
-        severity: 4,
-        source: null,
+        severity: 2,
+        source: "https://sky.wnba.com/news/chicago-sky-make-pair-of-deals-with-expansion-team",
         verified: true,
         tags: ["roster", "expansion-draft"],
       },
@@ -55,7 +55,7 @@ const GROUPS = {
         description:
           "Traded up in the 2024 draft to select Angel Reese at #7 overall, surrendering the pick that became the 2026 #2 overall — only to later trade her away for scraps.",
         responsible: "Front Office",
-        severity: 5,
+        severity: 4,
         source: "https://chicago.suntimes.com/chicago-sky-and-wnba/2024/04/15/sky-select-angel-reese-with-the-no-7-overall-pick-in-the-2024-wnba-draft",
         verified: true,
         tags: ["draft", "trade"],
