@@ -7,13 +7,14 @@
 
 ## 1. Visual Theme & Atmosphere
 
-The tracker aims for **dark arena energy** — the aesthetic of a scoreboard in a dimly lit stadium. Bold, legible, and unapologetic. The hero number should feel as large and confident as a jersey number on a Jumbotron.
+The tracker aims for **clean editorial energy** — the aesthetic of a sports journalism site, not a scoreboard. Bold, legible, and unapologetic. The hero number should feel as large and confident as a jersey number on a Jumbotron.
 
 Key characteristics:
-- **Near-black background** with zero ambient light — pure `#000000`
-- **Yellow as the hero accent** — the count is always in `--sky-yellow`, drawing the eye immediately
+- **White background** — pure `#ffffff`, maximizing contrast and readability
+- **Yellow + blue on the hero number** — fill in `--sky-yellow`, stroked with `--sky-blue`; both brand colors visible simultaneously
 - **Blue as a supporting accent** — labels, headers, interactive states in `--sky-blue`
-- **Glassmorphism nav** — sticky bar with `backdrop-filter: blur(20px)` and subtle blue border
+- **Navy for structure** — nav logo badge, "Erase the Tape" severity pill, section underline
+- **Glassmorphism nav** — sticky bar with `backdrop-filter: blur(20px)` and subtle border
 - **Tabular numerics** — all dates and counts use `font-variant-numeric: tabular-nums` for visual alignment
 - **Inter font** — chosen for its excellent legibility at large display sizes and tight letter-spacing
 
@@ -21,19 +22,29 @@ Key characteristics:
 
 ## 2. Color Palette & Roles
 
+### Official Chicago Sky Brand Colors
+
+Source: [TruColor WNBA Official Colors](https://www.trucolor.net/portfolio/womens-national-basketball-association-official-colors-1997-through-present/) · [Team Color Codes](https://teamcolorcodes.com/chicago-sky-color-codes/)
+
+| Color | Pantone | Hex | RGB | CMYK |
+|-------|---------|-----|-----|------|
+| Sky Blue | PMS 279 C | `#418FDE` | 65, 143, 222 | 69, 34, 0, 0 |
+| Sky Yellow | PMS 116 C | `#FFCD00` | 255, 205, 0 | 0, 15, 94, 0 |
+| Sky Navy | — | `#041E42` | 4, 30, 66 | — |
+
 ### CSS Variables
 
 ```css
 :root {
-  --sky-blue:        #418FDE;  /* Brand primary — labels, headers, focus rings */
-  --sky-yellow:      #FFCD00;  /* Brand accent — hero number, severity dots */
-  --sky-navy:        #041E42;  /* Deep brand color — rarely used directly */
-  --sky-navy-light:  #0a2a52;  /* Secondary navy — hover states on dark surfaces */
-  --text-primary:    #f5f5f7;  /* Main text — headings and body */
-  --text-secondary:  rgba(245, 245, 247, 0.6); /* Muted text — dates, subtitles, meta */
-  --bg:              #000000;  /* Page background */
-  --surface:         rgba(65, 143, 222, 0.06); /* Table & card backgrounds */
-  --border:          rgba(65, 143, 222, 0.12); /* All dividers and borders */
+  --sky-blue:        #418FDE;  /* PMS 279 C — labels, headers, focus rings */
+  --sky-yellow:      #FFCD00;  /* PMS 116 C — accent badges, future highlights */
+  --sky-navy:        #041E42;  /* Deep brand color — hero number, nav logo */
+  --sky-navy-light:  #0a2a52;  /* Secondary navy — reserved for future use */
+  --text-primary:    #0d0d0d;  /* Main text — headings and body */
+  --text-secondary:  rgba(0, 0, 0, 0.45); /* Muted text — dates, subtitles, meta */
+  --bg:              #ffffff;  /* Page background */
+  --surface:         rgba(65, 143, 222, 0.04); /* Table & card backgrounds */
+  --border:          rgba(0, 0, 0, 0.08); /* All dividers and borders */
 }
 ```
 
@@ -41,21 +52,21 @@ Key characteristics:
 
 | Role | Token | Hex / Value |
 |------|-------|-------------|
-| Page background | `--bg` | `#000000` |
-| Card / table surface | `--surface` | `rgba(65,143,222,0.06)` |
-| Primary text | `--text-primary` | `#f5f5f7` |
-| Secondary / muted text | `--text-secondary` | `rgba(245,245,247,0.6)` |
-| Brand primary (labels, headers) | `--sky-blue` | `#418FDE` |
-| Brand accent (hero number) | `--sky-yellow` | `#FFCD00` |
-| All borders and dividers | `--border` | `rgba(65,143,222,0.12)` |
-| Nav background | — | `rgba(0,0,0,0.8)` |
+| Page background | `--bg` | `#ffffff` |
+| Card / table surface | `--surface` | `rgba(65,143,222,0.04)` |
+| Primary text | `--text-primary` | `#0d0d0d` |
+| Secondary / muted text | `--text-secondary` | `rgba(0,0,0,0.45)` |
+| Brand primary (labels, headers) | `--sky-blue` | `#418FDE` (PMS 279 C) |
+| Brand yellow (accent) | `--sky-yellow` | `#FFCD00` (PMS 116 C) |
+| Brand navy (hero number, logo) | `--sky-navy` | `#041E42` |
+| All borders and dividers | `--border` | `rgba(0,0,0,0.08)` |
+| Nav background | — | `rgba(255,255,255,0.9)` |
 | Table row hover | — | `rgba(65,143,222,0.04)` |
-| Hero glow | — | `rgba(255,205,0,0.15)` |
 
 ### Do Not Use
 - Do not hardcode any hex values in CSS or JS. Always reference a `--token`.
 - Do not add new colors without adding them as a CSS variable in `:root`.
-- Do not use white (`#ffffff`) as a text color — `--text-primary` (`#f5f5f7`) is the approved off-white.
+- Do not use black (`#000000`) as a text color — `--text-primary` (`#0d0d0d`) is the approved near-black.
 
 ---
 
@@ -100,7 +111,7 @@ Loaded from Google Fonts. System font fallbacks ensure no layout shift before lo
   position: sticky; top: 0; z-index: 10;
   display: flex; align-items: center; gap: 12px;
   padding: 14px 24px;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(255, 255, 255, 0.9);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid var(--border);
@@ -152,11 +163,11 @@ Inline `↗` after blunder description. Only rendered when `blunder.source !== n
   line-height: 1;
   letter-spacing: -0.04em;
   color: var(--sky-yellow);
-  text-shadow: 0 0 80px rgba(255, 205, 0, 0.15);
+  -webkit-text-stroke: 2px var(--sky-blue);
 }
 ```
 
-The `text-shadow` creates a subtle glow — intentionally dim (15% opacity at 80px blur). Do not increase it; it reads as a halo, not a glow, at the current setting.
+Yellow fill with a sky blue outline — uses both brand colors simultaneously, readable at display size due to the stroke providing contrast against the white background.
 
 ### Table
 
@@ -179,21 +190,30 @@ tbody tr:hover {
 }
 ```
 
-### Severity Dots
+### Severity Labels
+
+Three-tier text badge system replacing the old 5-dot scale.
 
 ```css
-.severity-dot {
-  width: 10px; height: 10px;
-  border-radius: 50%;
-  background: var(--sky-yellow);
-  opacity: 0.25;       /* inactive */
+.severity-label {
+  display: inline-block;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.02em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
 }
-.severity-dot.active {
-  opacity: 1;          /* active */
-}
+.severity-label.tier-1 { background: rgba(0,0,0,0.06);          color: rgba(0,0,0,0.45); }
+.severity-label.tier-2 { background: rgba(65,143,222,0.12);      color: var(--sky-blue);  }
+.severity-label.tier-3 { background: var(--sky-navy);            color: #ffffff;          }
 ```
 
-Always render 5 dots. Active dots are full opacity yellow. Inactive dots are 25% opacity yellow (not grey — keeps the palette monochromatic).
+| Tier | Label | Numeric range | Treatment |
+|------|-------|---------------|-----------|
+| 1 | Fine. We're Fine. | severity 1–2 | Muted gray pill |
+| 2 | The Group Chat is Not Okay | severity 3–4 | Sky blue pill |
+| 3 | Erase the Tape | severity 5 | Navy filled pill, white text |
+
+Data still stores numeric severity (1–5); `renderSeverity()` in `app.js` maps to tiers at render time.
 
 ---
 
@@ -234,13 +254,12 @@ Base unit: **4px**
 
 | Level | Treatment | Use |
 |-------|-----------|-----|
-| Page | `background: #000000` | Base layer |
-| Surface | `background: rgba(65,143,222,0.06)` + `border: 1px solid rgba(65,143,222,0.12)` | Table card |
-| Nav | `background: rgba(0,0,0,0.8)` + `backdrop-filter: blur(20px)` | Sticky overlay |
-| Hero glow | `text-shadow: 0 0 80px rgba(255,205,0,0.15)` | Hero number emphasis |
+| Page | `background: #ffffff` | Base layer |
+| Surface | `background: rgba(65,143,222,0.04)` + `border: 1px solid rgba(0,0,0,0.08)` | Table card |
+| Nav | `background: rgba(255,255,255,0.9)` + `backdrop-filter: blur(20px)` | Sticky overlay |
 | Row hover | `background: rgba(65,143,222,0.04)` | Interactive feedback |
 
-**Shadow philosophy:** This design uses luminance and tinting instead of traditional drop shadows. Blue-tinted surfaces (`rgba(65,143,222,0.06)`) on a black background create depth without introducing new colors. The only shadow is the hero text-glow — everything else is border + background opacity.
+**Shadow philosophy:** This design uses subtle tinting and borders instead of traditional drop shadows. Blue-tinted surfaces on a white background create depth without introducing new colors. No text-shadows — the white background makes them unnecessary.
 
 ---
 
@@ -251,7 +270,7 @@ Base unit: **4px**
 - Use `text-transform: uppercase` + `letter-spacing: +0.06em` together — never one without the other.
 - Use `tabular-nums` on any column that contains dates or counts.
 - Keep the hero section at `min-height: 70vh` — the number needs to breathe.
-- Pair borders with `border-radius: 12px` on all card surfaces for visual softness against the hard black background.
+- Pair borders with `border-radius: 12px` on all card surfaces for visual softness.
 - Always test new blunder entries with long description text (>150 chars) to ensure the table wraps cleanly.
 
 ### Don't
@@ -259,7 +278,7 @@ Base unit: **4px**
 - Don't use `font-weight: bold` (700) on table body text — 400 only. Bolds compete with the hierarchy.
 - Don't use color fills for row hover — only the approved `rgba(65,143,222,0.04)` tint.
 - Don't introduce drop shadows on cards. The border + surface tint is the depth model.
-- Don't use `#ffffff` (pure white) for text — always `--text-primary` (`#f5f5f7`).
+- Don't use `#000000` (pure black) for text — always `--text-primary` (`#0d0d0d`).
 - Don't add uppercase styling without also increasing `letter-spacing` to at least `+0.06em`.
 - Don't use placeholder `alt=""` on any images added in the future.
 
@@ -294,13 +313,15 @@ Base unit: **4px**
 ### Quick Color Reference
 
 ```
-Background:         #000000
-Surface/card:       rgba(65,143,222,0.06)
-Border:             rgba(65,143,222,0.12)
-Text primary:       #f5f5f7
-Text secondary:     rgba(245,245,247,0.6)
-Brand blue (label): #418FDE
-Brand yellow (hero):#FFCD00
+Background:          #ffffff
+Surface/card:        rgba(65,143,222,0.04)
+Border:              rgba(0,0,0,0.08)
+Text primary:        #0d0d0d
+Text secondary:      rgba(0,0,0,0.45)
+Brand blue (labels): #418FDE  — PMS 279 C
+Brand yellow (acc):  #FFCD00  — PMS 116 C
+Brand navy (hero):   #041E42
+Nav background:      rgba(255,255,255,0.9)
 ```
 
 ### Example Component Prompts

@@ -21,9 +21,18 @@ function formatDate(dateStr) {
   });
 }
 function renderSeverity(level) {
-  let h = '<div class="severity">';
-  for (let i = 1; i <= 5; i++) h += `<span class="severity-dot${i <= level ? " active" : ""}"></span>`;
-  return h + "</div>";
+  let label, tier;
+  if (level <= 2) {
+    label = "Fine. We're Fine.";
+    tier = 1;
+  } else if (level <= 4) {
+    label = "The Group Chat is Not Okay";
+    tier = 2;
+  } else {
+    label = "Erase the Tape";
+    tier = 3;
+  }
+  return `<span class="severity-label tier-${tier}">${label}</span>`;
 }
 
 let passed = 0;
@@ -113,27 +122,40 @@ ok("does not drift by a day (UTC anchor)", () => {
 // ── renderSeverity ────────────────────────────────────────────────────────────
 console.log("\nrenderSeverity:");
 
-ok("severity 3: 3 active dots, 5 total", () => {
-  const html = renderSeverity(3);
-  assert.strictEqual((html.match(/severity-dot active/g) || []).length, 3);
-  assert.strictEqual((html.match(/severity-dot/g) || []).length, 5);
-});
-
-ok("severity 5: all 5 dots active", () => {
-  const html = renderSeverity(5);
-  assert.strictEqual((html.match(/severity-dot active/g) || []).length, 5);
-});
-
-ok("severity 1: exactly 1 active dot", () => {
+ok("severity 1: tier-1 Fine. We're Fine.", () => {
   const html = renderSeverity(1);
-  assert.strictEqual((html.match(/severity-dot active/g) || []).length, 1);
-  assert.strictEqual((html.match(/severity-dot/g) || []).length, 5);
+  assert.ok(html.includes("tier-1"));
+  assert.ok(html.includes("Fine. We're Fine."));
 });
 
-ok("wraps in .severity div", () => {
+ok("severity 2: tier-1 Fine. We're Fine.", () => {
+  const html = renderSeverity(2);
+  assert.ok(html.includes("tier-1"));
+  assert.ok(html.includes("Fine. We're Fine."));
+});
+
+ok("severity 3: tier-2 The Group Chat is Not Okay", () => {
   const html = renderSeverity(3);
-  assert.ok(html.startsWith('<div class="severity">'));
-  assert.ok(html.endsWith("</div>"));
+  assert.ok(html.includes("tier-2"));
+  assert.ok(html.includes("The Group Chat is Not Okay"));
+});
+
+ok("severity 4: tier-2 The Group Chat is Not Okay", () => {
+  const html = renderSeverity(4);
+  assert.ok(html.includes("tier-2"));
+  assert.ok(html.includes("The Group Chat is Not Okay"));
+});
+
+ok("severity 5: tier-3 Erase the Tape", () => {
+  const html = renderSeverity(5);
+  assert.ok(html.includes("tier-3"));
+  assert.ok(html.includes("Erase the Tape"));
+});
+
+ok("renders a span with severity-label class", () => {
+  const html = renderSeverity(3);
+  assert.ok(html.startsWith('<span class="severity-label'));
+  assert.ok(html.endsWith("</span>"));
 });
 
 // ── Summary ───────────────────────────────────────────────────────────────────
