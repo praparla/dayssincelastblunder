@@ -46,9 +46,20 @@ function populateGroupSelector() {
   });
 }
 
+// === Theme ===
+function applyTheme(group) {
+  if (!group.theme || typeof document === "undefined") return;
+  const root = document.documentElement;
+  root.style.setProperty("--sky-blue", group.theme.blue);
+  root.style.setProperty("--sky-yellow", group.theme.yellow);
+  root.style.setProperty("--sky-navy", group.theme.navy);
+  root.style.setProperty("--surface", group.theme.surface);
+}
+
 // === Render ===
 function render() {
   const group = GROUPS[currentGroupId];
+  applyTheme(group);
   const sorted = [...group.blunders].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
