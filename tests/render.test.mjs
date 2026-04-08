@@ -178,9 +178,9 @@ ok("tablet breakpoint sets hero min-height to 60vh", () => {
   assert.match(tabletBlock, /min-height:\s*60vh/);
 });
 
-ok("tablet breakpoint sets group-select max-width", () => {
+ok("tablet breakpoint limits group-tabs max-width", () => {
   const tabletBlock = css.match(/@media\s*\(min-width:\s*601px\)[^{]*\{([\s\S]*?)(?=@media)/)?.[1] ?? "";
-  assert.match(tabletBlock, /group-select[\s\S]*?max-width/);
+  assert.match(tabletBlock, /group-tabs[\s\S]*?max-width/);
 });
 
 ok("mobile breakpoint hides Responsible column (th:nth-child(3) display:none)", () => {

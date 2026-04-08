@@ -220,30 +220,41 @@ td:nth-child(3) {
   flex: 1;
 }
 
-.group-select {
+.group-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.group-tab {
   appearance: none;
-  -webkit-appearance: none;
-  background: var(--surface);
+  background: transparent;
   border: 1px solid var(--border);
   border-radius: 20px;
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-family: inherit;
   font-size: 13px;
   font-weight: 500;
   letter-spacing: -0.01em;
-  padding: 5px 28px 5px 12px;
+  padding: 5px 14px;
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(0%2C0%2C0%2C0.45)' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  transition: border-color 0.15s;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
 }
 
-.group-select:hover {
-  border-color: rgba(65, 143, 222, 0.3);
+.group-tab:hover {
+  border-color: var(--sky-blue);
+  color: var(--text-primary);
 }
 
-.group-select:focus {
+.group-tab.active {
+  background: var(--sky-yellow);
+  border-color: var(--sky-yellow);
+  color: var(--sky-navy);
+  font-weight: 600;
+}
+
+.group-tab:focus {
   outline: 2px solid var(--sky-blue);
   outline-offset: 2px;
 }
@@ -288,8 +299,8 @@ td:nth-child(3) {
     font-size: 24px;
   }
 
-  .group-select {
-    max-width: 140px;
+  .group-tabs {
+    max-width: 200px;
   }
 }
 

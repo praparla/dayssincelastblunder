@@ -34,14 +34,18 @@ function renderSeverity(level) {
 
 // === Group Selector ===
 function populateGroupSelector() {
-  const select = document.getElementById("group-select");
-  if (!select) return;
-  select.innerHTML = Object.values(GROUPS)
-    .map((g) => `<option value="${g.id}">${g.name}</option>`)
+  const container = document.getElementById("group-tabs");
+  if (!container) return;
+  container.innerHTML = Object.values(GROUPS)
+    .map(
+      (g) =>
+        `<button class="group-tab${g.id === currentGroupId ? " active" : ""}" data-group="${g.id}" role="tab" aria-selected="${g.id === currentGroupId}">${g.name}</button>`
+    )
     .join("");
-  select.value = currentGroupId;
-  select.addEventListener("change", (e) => {
-    currentGroupId = e.target.value;
+  container.addEventListener("click", (e) => {
+    const btn = e.target.closest(".group-tab");
+    if (!btn) return;
+    currentGroupId = btn.dataset.group;
     render();
   });
 }
@@ -60,6 +64,11 @@ function applyTheme(group) {
 function render() {
   const group = GROUPS[currentGroupId];
   applyTheme(group);
+  document.querySelectorAll(".group-tab").forEach((btn) => {
+    const active = btn.dataset.group === currentGroupId;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-selected", String(active));
+  });
   const sorted = [...group.blunders].sort(
     (a, b) => new Date(b.date) - new Date(a.date)
   );
