@@ -11,9 +11,9 @@
 | ✅ Done | **Group switcher** | Nav `<select>` swaps between GROUPS in `blunders-data.js`. Chicago Sky live; add more groups by extending the GROUPS object. |
 | ✅ Done | **Multi-group data module** | `blunders-data.js` with flexible schema: id, source, verified, tags per blunder. |
 | ✅ Done | **`/refresh-blunders` skill** | Slash command for web-searching blunders (recent + historical), sourcing existing entries, and proposing updates to `blunders-data.js`. |
-| High | **Add more groups** | Expand `GROUPS` in `blunders-data.js` with Tier 1 spin-off trackers (Knicks, Boeing, etc.) — see spin-off section below. |
-| High | **Add source URLs to each blunder** | Run `/refresh-blunders` to find and verify source URLs. Schema already supports `source` field. |
-| High | **Shareable blunder permalinks** | `?blunder=sky-001` in URL highlights that row and pre-fills OG meta for sharing a specific blunder |
+| ✅ Done | **Add more groups** | Milwaukee Bucks added with 7 sourced blunders (2021–2026). Expand further with Tier 1 spin-offs (Knicks, Boeing, etc.). |
+| ✅ Done | **Add source URLs to each blunder** | All Chicago Sky and Milwaukee Bucks blunders have verified source URLs. |
+| ✅ Done | **Shareable blunder permalinks** | `?blunder=sky-001` in URL highlights that row, switches to correct group, and scrolls to it. OG meta tags added. |
 | Medium | **Streak counter** — record longest days-since streak | Show "Longest streak ever: X days (broken on [date])" in the hero section |
 | Medium | **Auto-update via GitHub Actions** | Nightly CI job that runs `/refresh-blunders all` and commits new data. |
 | Medium | **Severity filter** — filter table to severity ≥ N | Dropdown or pill buttons above the table |

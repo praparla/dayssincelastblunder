@@ -14,7 +14,8 @@ const MIME = {
 };
 
 createServer(async (req, res) => {
-  const path = req.url === "/" ? "/index.html" : req.url;
+  const urlPath = new URL(req.url, "http://localhost").pathname;
+  const path = urlPath === "/" ? "/index.html" : urlPath;
   try {
     const data = await readFile(join(DIR, path));
     res.writeHead(200, { "Content-Type": MIME[extname(path)] || "text/plain" });

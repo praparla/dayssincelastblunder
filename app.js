@@ -1,5 +1,6 @@
 // === State ===
 let currentGroupId = Object.keys(GROUPS)[0];
+let highlightBlunderId = null;
 
 // === Render Helpers ===
 function daysSince(dateStr) {
@@ -30,6 +31,26 @@ function renderSeverity(level) {
     tier = 3;
   }
   return `<span class="severity-label tier-${tier}">${label}</span>`;
+}
+
+// === Permalink ===
+function parsePermalink() {
+  const params = new URLSearchParams(window.location.search);
+  const blunderId = params.get("blunder");
+  if (!blunderId) return;
+  for (const [groupId, group] of Object.entries(GROUPS)) {
+    if (group.blunders.some((b) => b.id === blunderId)) {
+      currentGroupId = groupId;
+      highlightBlunderId = blunderId;
+      return;
+    }
+  }
+}
+
+function setPermalink(blunderId) {
+  const url = new URL(window.location);
+  url.searchParams.set("blunder", blunderId);
+  history.replaceState(null, "", url);
 }
 
 // === Group Selector ===
@@ -84,23 +105,48 @@ function render() {
   tbody.innerHTML = sorted
     .map(
       (b) => `
-    <tr>
+    <tr id="row-${b.id}"${highlightBlunderId === b.id ? ' class="highlight"' : ""}>
       <td>${formatDate(b.date)}</td>
       <td>${b.description}${
         b.source
           ? ` <a class="source-link" href="${b.source}" target="_blank" rel="noopener noreferrer">↗</a>`
           : ""
-      }</td>
+      } <button class="permalink-btn" data-id="${b.id}" title="Copy link to this blunder">🔗</button></td>
       <td>${b.responsible}</td>
       <td>${renderSeverity(b.severity)}</td>
     </tr>
   `
     )
     .join("");
+
+  // Scroll to highlighted row
+  if (highlightBlunderId) {
+    const row = document.getElementById("row-" + highlightBlunderId);
+    if (row) {
+      row.scrollIntoView({ behavior: "smooth", block: "center" });
+      highlightBlunderId = null;
+    }
+  }
 }
 
 function init() {
+  parsePermalink();
   populateGroupSelector();
+
+  // Permalink copy handler (delegated, attached once)
+  document.getElementById("blunder-body").addEventListener("click", (e) => {
+    const btn = e.target.closest(".permalink-btn");
+    if (!btn) return;
+    const id = btn.dataset.id;
+    const url = new URL(window.location);
+    url.searchParams.set("blunder", id);
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      btn.textContent = "✓";
+      setTimeout(() => (btn.textContent = "🔗"), 1500);
+    });
+    setPermalink(id);
+  });
+
   render();
 }
 

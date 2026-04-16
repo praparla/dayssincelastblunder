@@ -154,6 +154,36 @@ Use a pill shape (`border-radius: 20px`) consistent with the badge style in §9.
 
 Inline `↗` after blunder description. Only rendered when `blunder.source !== null`.
 
+### Permalink Button
+
+```css
+.permalink-btn {
+  appearance: none; background: none; border: none;
+  cursor: pointer; font-size: 12px; opacity: 0;
+  padding: 2px 4px; vertical-align: middle;
+  transition: opacity 0.15s;
+}
+tr:hover .permalink-btn { opacity: 0.5; }
+.permalink-btn:hover { opacity: 1; }
+```
+
+Hidden by default, appears on row hover. Clicking copies a `?blunder=<id>` URL to clipboard and updates the browser URL via `history.replaceState`. The target row gets a `tr.highlight` class with a 3-second blue fade animation.
+
+### Permalink Highlight Row
+
+```css
+tr.highlight {
+  background: rgba(65, 143, 222, 0.08);
+  animation: highlight-fade 3s ease-out forwards;
+}
+@keyframes highlight-fade {
+  0%   { background: rgba(65, 143, 222, 0.15); }
+  100% { background: transparent; }
+}
+```
+
+Applied on page load when `?blunder=<id>` is in the URL. The page auto-switches to the correct group and scrolls to the highlighted row.
+
 ### Hero Number
 
 ```css
@@ -291,7 +321,7 @@ Base unit: **4px**
 | Name | Width | Key Changes |
 |------|-------|-------------|
 | Very small mobile | ≤380px | Nav subtitle ("Blunder Tracker") hidden to protect group selector space |
-| Mobile | ≤600px | Hero 55vh / 60px 20px 40px padding, `.hero-blunder` 15px, table cells 10px padding, section padding 16px, section title 22px; Responsible column hidden; severity pill compacted (10px / 2px 7px); fade gradient on table right edge |
+| Mobile | ≤600px | Hero 55vh / 60px 20px 40px padding, `.hero-blunder` 15px, table cells 10px padding, section padding 16px, section title 22px; Responsible column hidden; severity pill compacted (10px / 2px 7px) with `white-space: normal` to allow wrapping; fade gradient on table right edge |
 | Tablet | 601px – 900px | Hero 60vh / 60px 24px 44px padding, section title 24px, group selector max-width 140px, table padding 20px side |
 | Desktop | >900px | Default styles apply |
 
