@@ -259,6 +259,44 @@ td:nth-child(3) {
   outline-offset: 2px;
 }
 
+/* Highlighted permalink row */
+tr.highlight {
+  background: rgba(65, 143, 222, 0.08);
+  animation: highlight-fade 3s ease-out forwards;
+}
+
+@keyframes highlight-fade {
+  0% { background: rgba(65, 143, 222, 0.15); }
+  100% { background: transparent; }
+}
+
+/* Permalink copy button */
+.permalink-btn {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  opacity: 0;
+  padding: 2px 4px;
+  vertical-align: middle;
+  transition: opacity 0.15s;
+}
+
+tr:hover .permalink-btn {
+  opacity: 0.5;
+}
+
+.permalink-btn:hover {
+  opacity: 1 !important;
+}
+
+.permalink-btn:focus {
+  outline: 2px solid var(--sky-blue);
+  outline-offset: 2px;
+  opacity: 1;
+}
+
 /* Source link in table */
 .source-link {
   color: var(--sky-blue);
@@ -338,10 +376,11 @@ td:nth-child(3) {
     display: none;
   }
 
-  /* Compact severity pill */
+  /* Compact severity pill — allow wrapping on narrow screens */
   .severity-label {
     font-size: 10px;
     padding: 2px 7px;
+    white-space: normal;
   }
 
   /* Fade hint at right edge of table to signal horizontal scroll */
