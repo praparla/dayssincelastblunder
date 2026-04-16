@@ -23,6 +23,7 @@
 | 5 | 2026-04-01 | `app.js` — hero | Hero section briefly showed stale data (previous blunder) before updating | **Code bug** — DOM updated inside async timeout without clearing first | Synchronous DOM clear before sort + render; no async needed for in-memory data | b7421c3 |
 | 6 | 2026-04-15 | `style.css` — `.severity-label` | Severity pill text ("Erase the Tape", "The Group Chat is Not Okay") clipped/truncated on mobile (≤600px) viewports | **Code bug** — `.severity-label` had `white-space: nowrap` globally but was never overridden in the mobile breakpoint; pills overflowed their table cell | Added `white-space: normal` to `.severity-label` inside the `≤600px` media query so pills wrap instead of clipping | (this commit) |
 | 7 | 2026-04-15 | `serve.mjs` — URL routing | Permalink URLs with query params (e.g. `?blunder=sky-001`) returned 404 | **Code bug** — `req.url` included the query string, causing file lookup to fail | Parse `req.url` through `new URL()` and use `.pathname` only for file resolution | (this commit) |
+| 8 | 2026-04-15 | `app.js` — table rendering | ↗ source links and 🔗 permalink buttons are icon-only with no `aria-label` — screen readers announce "↗" and "🔗" literally | **Code bug** — `aria-label` omitted on both elements; `title` on button not reliably announced by all screen readers (iOS VoiceOver ignores it) | Added `aria-label="View source"` to ↗ links and `aria-label="Copy link to this blunder"` to 🔗 buttons in `app.js:112-114` | TBD |
 
 ---
 

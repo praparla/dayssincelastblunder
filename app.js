@@ -109,9 +109,9 @@ function render() {
       <td>${formatDate(b.date)}</td>
       <td>${b.description}${
         b.source
-          ? ` <a class="source-link" href="${b.source}" target="_blank" rel="noopener noreferrer">↗</a>`
+          ? ` <a class="source-link" href="${b.source}" target="_blank" rel="noopener noreferrer" aria-label="View source">↗</a>`
           : ""
-      } <button class="permalink-btn" data-id="${b.id}" title="Copy link to this blunder">🔗</button></td>
+      } <button class="permalink-btn" data-id="${b.id}" title="Copy link to this blunder" aria-label="Copy link to this blunder">🔗</button></td>
       <td>${b.responsible}</td>
       <td>${renderSeverity(b.severity)}</td>
     </tr>
