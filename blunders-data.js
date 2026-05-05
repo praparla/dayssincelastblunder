@@ -133,6 +133,18 @@ const GROUPS = {
         tags: ["ownership", "governance"],
       },
       {
+        id: "sky-012",
+        type: "win",
+        date: "2026-05-04",
+        description:
+          "Signed veteran point guard Natasha Cloud — a two-time champion and 2024 Finals MVP — providing the experienced floor general the Sky have lacked since Courtney Vandersloot left in 2023.",
+        responsible: "GM Jeff Paglioca",
+        severity: 3,
+        source: "https://www.espn.com/wnba/story/_/id/48677111/sources-sky-waive-hailey-van-lith-due-style-play",
+        verified: true,
+        tags: ["roster", "free-agency"],
+      },
+      {
         id: "sky-011",
         date: "2026-05-04",
         description:
