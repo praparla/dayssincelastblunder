@@ -36,6 +36,17 @@ function renderSeverity(level) {
   return `<span class="severity-label tier-${tier}">${label}</span>`;
 }
 
+function renderVerdict(b) {
+  if (b.type === "win") {
+    let label;
+    if (b.severity <= 2) label = "Solid Move";
+    else if (b.severity <= 4) label = "Good Call";
+    else label = "Actually Based";
+    return `<span class="verdict-label win">${label}</span>`;
+  }
+  return renderSeverity(b.severity);
+}
+
 let passed = 0;
 let failed = 0;
 
@@ -79,6 +90,9 @@ for (const [groupId, group] of Object.entries(GROUPS)) {
       assert.ok(Array.isArray(b.tags), "tags is array");
       if (b.source !== null) {
         assert.ok(b.source.startsWith("http"), "source is a URL when set");
+      }
+      if (b.type !== undefined) {
+        assert.ok(["blunder", "win"].includes(b.type), `type must be 'blunder' or 'win', got: ${b.type}`);
       }
     });
   }
@@ -157,6 +171,38 @@ ok("renders a span with severity-label class", () => {
   const html = renderSeverity(3);
   assert.ok(html.startsWith('<span class="severity-label'));
   assert.ok(html.endsWith("</span>"));
+});
+
+// ── renderVerdict ─────────────────────────────────────────────────────────────
+console.log("\nrenderVerdict:");
+
+ok("blunder entry delegates to renderSeverity", () => {
+  const html = renderVerdict({ severity: 5 });
+  assert.ok(html.includes("tier-3"));
+  assert.ok(html.includes("Erase the Tape"));
+});
+
+ok("win entry with severity 1-2 returns Solid Move pill", () => {
+  const html = renderVerdict({ type: "win", severity: 2 });
+  assert.ok(html.includes("verdict-label win"));
+  assert.ok(html.includes("Solid Move"));
+});
+
+ok("win entry with severity 3-4 returns Good Call pill", () => {
+  const html = renderVerdict({ type: "win", severity: 3 });
+  assert.ok(html.includes("verdict-label win"));
+  assert.ok(html.includes("Good Call"));
+});
+
+ok("win entry with severity 5 returns Actually Based pill", () => {
+  const html = renderVerdict({ type: "win", severity: 5 });
+  assert.ok(html.includes("verdict-label win"));
+  assert.ok(html.includes("Actually Based"));
+});
+
+ok("win pill does not contain severity-label class", () => {
+  const html = renderVerdict({ type: "win", severity: 3 });
+  assert.ok(!html.includes("severity-label"));
 });
 
 // ── CSS responsive rules ──────────────────────────────────────────────────────

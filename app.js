@@ -33,6 +33,17 @@ function renderSeverity(level) {
   return `<span class="severity-label tier-${tier}">${label}</span>`;
 }
 
+function renderVerdict(b) {
+  if (b.type === "win") {
+    let label;
+    if (b.severity <= 2) label = "Solid Move";
+    else if (b.severity <= 4) label = "Good Call";
+    else label = "Actually Based";
+    return `<span class="verdict-label win">${label}</span>`;
+  }
+  return renderSeverity(b.severity);
+}
+
 // === Permalink ===
 function parsePermalink() {
   const params = new URLSearchParams(window.location.search);
@@ -94,29 +105,33 @@ function render() {
     (a, b) => new Date(b.date) - new Date(a.date)
   );
 
-  const latest = sorted[0];
-  document.getElementById("days-count").textContent = daysSince(latest.date);
+  const latestBlunder = sorted.find((b) => b.type !== "win") || sorted[0];
+  document.getElementById("days-count").textContent = daysSince(latestBlunder.date);
   document.getElementById("latest-blunder").textContent =
-    `Latest: ${latest.description}`;
+    `Latest: ${latestBlunder.description}`;
 
   document.title = `Days Since Last Blunder — ${group.name}`;
 
   const tbody = document.getElementById("blunder-body");
   tbody.innerHTML = sorted
-    .map(
-      (b) => `
-    <tr id="row-${b.id}"${highlightBlunderId === b.id ? ' class="highlight"' : ""}>
+    .map((b) => {
+      const classes = [
+        highlightBlunderId === b.id ? "highlight" : "",
+        b.type === "win" ? "win-row" : "",
+      ].filter(Boolean).join(" ");
+      return `
+    <tr id="row-${b.id}"${classes ? ` class="${classes}"` : ""}>
       <td>${formatDate(b.date)}</td>
       <td>${b.description}${
         b.source
           ? ` <a class="source-link" href="${b.source}" target="_blank" rel="noopener noreferrer" aria-label="View source">↗</a>`
           : ""
-      } <button class="permalink-btn" data-id="${b.id}" title="Copy link to this blunder" aria-label="Copy link to this blunder">🔗</button></td>
+      } <button class="permalink-btn" data-id="${b.id}" title="Copy link to this entry" aria-label="Copy link to this entry">🔗</button></td>
       <td>${b.responsible}</td>
-      <td>${renderSeverity(b.severity)}</td>
+      <td>${renderVerdict(b)}</td>
     </tr>
-  `
-    )
+  `;
+    })
     .join("");
 
   // Scroll to highlighted row
@@ -152,7 +167,7 @@ function init() {
 
 // Node.js compatibility for tests
 if (typeof module !== "undefined") {
-  module.exports = { daysSince, formatDate, renderSeverity };
+  module.exports = { daysSince, formatDate, renderSeverity, renderVerdict };
 } else {
   init();
 }

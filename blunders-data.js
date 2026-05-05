@@ -121,6 +121,28 @@ const GROUPS = {
         verified: true,
         tags: ["trade", "draft", "roster"],
       },
+      {
+        id: "sky-010",
+        date: "2026-01-28",
+        description:
+          "Minority owner Steven Rogers sued principal owner Michael Alter alleging 'unlawful self-dealing' — Alter allegedly diluted minority investors' stakes via a 2022 debt-to-equity conversion that inflated his own ownership share ahead of an $85M valuation round. Lawsuit pending in Cook County Circuit Court.",
+        responsible: "Owner Michael Alter",
+        severity: 3,
+        source: "https://chicago.suntimes.com/chicago-sky/2026/02/05/sky-ownership-lawsuit-begins-at-a-pivotal-moment-for-the-franchise",
+        verified: true,
+        tags: ["ownership", "governance"],
+      },
+      {
+        id: "sky-011",
+        date: "2026-05-04",
+        description:
+          "Waived 2025 first-round pick Hailey Van Lith (No. 11 overall) after one season (3.5 ppg, 33.9% FG, 16.1% 3P in 29 games), citing 'style of play preference.' The Sky had surrendered their 2026 first-round pick to Minnesota to acquire this pick — a first-round asset traded for a player who didn't survive Year 2 training camp.",
+        responsible: "GM Jeff Paglioca",
+        severity: 3,
+        source: "https://chicago.suntimes.com/chicago-sky/2026/05/04/sky-waive-guard-hailey-van-lith",
+        verified: true,
+        tags: ["draft", "roster", "player-management"],
+      },
     ],
   },
 
@@ -211,6 +233,18 @@ const GROUPS = {
         source: "https://www.brewhoop.com/2021/8/2/22606901/report-pj-tucker-signing-with-miami-heat-on-2-year-15-million-deal",
         verified: true,
         tags: ["free-agency", "roster", "cost-cutting"],
+      },
+      {
+        id: "bucks-008",
+        type: "win",
+        date: "2025-02-05",
+        description:
+          "Traded injury-prone, declining Khris Middleton (plus AJ Johnson, Delon Wright, a 2028 first-round pick swap) to Washington for Kyle Kuzma, Jericho Sims, and two second-rounders — shedding a $32M/yr contract that had become an albatross and creating cap flexibility to rebuild around Giannis.",
+        responsible: "GM Jon Horst",
+        severity: 3,
+        source: "https://www.espn.com/nba/story/_/id/43704153/sources-bucks-trade-khris-middleton-wizards-kyle-kuzma",
+        verified: true,
+        tags: ["trade", "cap-management"],
       },
     ],
   },
