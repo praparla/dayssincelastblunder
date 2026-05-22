@@ -1,0 +1,11 @@
+# Local Claude Code config (machine-specific absolute paths)
+.claude/launch.json
+
+# Secrets — never commit
+.env
+.env.local
+credentials.json
+secrets/
+
+# OS / editor cruft
+.DS_Store

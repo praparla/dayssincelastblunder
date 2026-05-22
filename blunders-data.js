@@ -260,6 +260,120 @@ const GROUPS = {
       },
     ],
   },
+
+  "dallas-mavericks": {
+    id: "dallas-mavericks",
+    name: "Dallas Mavericks",
+    sport: "NBA",
+    theme: {
+      blue: "#0053BC",
+      yellow: "#B8C4CA",
+      navy: "#002B5E",
+      surface: "rgba(0, 83, 188, 0.04)",
+    },
+    blunders: [
+      {
+        id: "mavs-001",
+        date: "2025-02-02",
+        description:
+          "Traded 25-year-old five-time All-NBA superstar Luka Dončić to the Lakers for an injury-prone, 31-year-old Anthony Davis, Max Christie, and a single 2029 first-round pick — widely regarded as the most lopsided star trade in modern NBA history, with GM Nico Harrison defending it by saying 'defense wins championships.'",
+        responsible: "GM Nico Harrison",
+        severity: 5,
+        source: "https://www.espn.com/nba/story/_/id/43659380/sources-mavericks-trading-doncic-lakers-anthony-davis",
+        verified: true,
+        tags: ["trade", "player-management", "roster"],
+      },
+      {
+        id: "mavs-002",
+        date: "2025-11-11",
+        description:
+          "Fired GM Nico Harrison after a 3-8 start — nine months after the Dončić trade and amid relentless 'Fire Nico' chants, fan protests, and crowdfunded billboards — a belated admission of the catastrophe ownership had greenlit.",
+        responsible: "Ownership (Patrick Dumont) / Nico Harrison",
+        severity: 4,
+        source: "https://www.cnn.com/2025/11/11/sport/nba-mavericks-nico-harrison-fans",
+        verified: true,
+        tags: ["firing", "governance", "player-management"],
+      },
+      {
+        id: "mavs-003",
+        date: "2022-07-12",
+        description:
+          "Let homegrown guard Jalen Brunson sign with the New York Knicks (4 yr/$104M) for nothing after declining to extend him a year earlier when he was far cheaper; he became an All-NBA star and the Knicks' franchise centerpiece. Mark Cuban later called it a mistake.",
+        responsible: "Mark Cuban / Front Office",
+        severity: 4,
+        source: "https://www.espn.com/nba/story/_/id/34174978/sources-dallas-mavericks-informed-jalen-brunson-intends-sign-new-york-knicks",
+        verified: true,
+        tags: ["free-agency", "roster", "contract"],
+      },
+      {
+        id: "mavs-004",
+        date: "2023-12-27",
+        description:
+          "Mark Cuban sold majority control of the franchise to the Adelson/Dumont families (~$3.5B) while reportedly expecting to retain control of basketball operations — instead he was boxed out and blindsided by the Dončić trade, and has since said he regrets who he sold to.",
+        responsible: "Owner Mark Cuban",
+        severity: 4,
+        source: "https://pr.nba.com/nba-board-of-governors-mavericks-sale/",
+        verified: true,
+        tags: ["ownership", "governance"],
+      },
+      {
+        id: "mavs-005",
+        date: "2019-01-31",
+        description:
+          "Acquired oft-injured Kristaps Porziņģis from the Knicks, surrendering Dennis Smith Jr. and two future first-round picks while taking on bad contracts to facilitate the deal.",
+        responsible: "Front Office (Donnie Nelson)",
+        severity: 3,
+        source: "https://www.espn.com/nba/story/_/id/25894335/dallas-mavericks-agree-trade-new-york-knicks-kristaps-porzingis",
+        verified: true,
+        tags: ["trade", "draft", "cap-management"],
+      },
+      {
+        id: "mavs-006",
+        date: "2022-02-10",
+        description:
+          "Three years and a five-year max extension later, dumped Kristaps Porziņģis on the Wizards for Spencer Dinwiddie and Davis Bertāns — recouping a fraction of what it cost to acquire and pay him.",
+        responsible: "Front Office",
+        severity: 3,
+        source: "https://www.espn.com/nba/story/_/id/33261228/sources-dallas-mavericks-trading-kristaps-porzingis-washington-wizards-spencer-dinwiddie-davis-bertans",
+        verified: true,
+        tags: ["trade", "roster"],
+      },
+      {
+        id: "mavs-007",
+        date: "2023-04-14",
+        description:
+          "Fined $750,000 by the NBA for resting Kyrie Irving and other key players down the stretch to lose games and protect a top-10 draft pick; the league said the move 'undermined the integrity of our sport.'",
+        responsible: "Front Office / Mark Cuban",
+        severity: 3,
+        source: "https://www.washingtonpost.com/sports/2023/04/14/dallas-mavericks-tanking-fine/",
+        verified: true,
+        tags: ["tanking", "discipline"],
+      },
+      {
+        id: "mavs-008",
+        date: "2011-12-10",
+        description:
+          "Let Finals-anchoring, DPOY-caliber center Tyson Chandler leave (sign-and-trade to the Knicks) months after the 2011 championship to preserve cap space for stars like Deron Williams and Dwight Howard who never came — beginning a decade without a single playoff series win.",
+        responsible: "Owner Mark Cuban",
+        severity: 4,
+        source: "https://bleacherreport.com/articles/2581452-tyson-chandler-comments-on-departure-from-mavericks",
+        verified: true,
+        tags: ["roster", "free-agency", "cap-management"],
+      },
+      {
+        id: "mavs-009",
+        type: "win",
+        date: "2025-05-12",
+        description:
+          "Won the No. 1 overall pick at just 1.8% odds — the fourth-longest in lottery history — later using it to draft phenom Cooper Flagg, an improbable stroke of redemption months after trading away Luka Dončić.",
+        responsible: "The Basketball Gods",
+        severity: 5,
+        source: "https://www.nba.com/news/2025-nba-draft-lottery-result",
+        verified: true,
+        tags: ["draft"],
+      },
+    ],
+  },
 };
 
 // Node.js compatibility for tests

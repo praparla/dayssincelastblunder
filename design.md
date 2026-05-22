@@ -63,6 +63,27 @@ Source: [TruColor WNBA Official Colors](https://www.trucolor.net/portfolio/women
 | Nav background | — | `rgba(255,255,255,0.9)` |
 | Table row hover | — | `rgba(65,143,222,0.04)` |
 
+### Per-Group Theme Palettes
+
+The app is multi-group. Each group in `blunders-data.js` carries a `theme` object with four slots; `applyTheme()` (`app.js`) maps them onto CSS variables at render time, so switching tabs re-themes the page with **no CSS change**. The variable names are `--sky-*` for historical reasons (Sky was the first group) — treat them as generic theme slots, not Sky-specific.
+
+| Theme slot | CSS variable | Primary drivers |
+|------------|--------------|-----------------|
+| `blue` | `--sky-blue` | Hero eyebrow label, hero-number stroke, table headers, source links, hover/focus outlines |
+| `yellow` | `--sky-yellow` | Hero-number fill, nav-logo badge, section-title underline, active group tab, tier-2 severity pill |
+| `navy` | `--sky-navy` | Nav-logo text, active-tab text, tier-3 "Erase the Tape" pill |
+| `surface` | `--surface` | Table / card background tint |
+
+Following the hero-number model (§4), each palette pairs a **light `yellow` fill** with a **darker `blue` stroke** so the number stays legible on white — both team colors visible at once.
+
+| Group | `blue` | `yellow` | `navy` | `surface` |
+|-------|--------|----------|--------|-----------|
+| Chicago Sky | `#418FDE` | `#FFCD00` | `#041E42` | `rgba(65, 143, 222, 0.04)` |
+| Milwaukee Bucks | `#00471B` | `#EEE1C6` | `#000000` | `rgba(0, 71, 27, 0.04)` |
+| Dallas Mavericks | `#0053BC` | `#B8C4CA` | `#002B5E` | `rgba(0, 83, 188, 0.04)` |
+
+Hexes are official team color codes. When adding a group, define all four slots in its `theme` object and add a row to the table above — never hardcode these values elsewhere. (Milwaukee's `navy` slot is `#000000` by team identity; it's a structural theme color, not body text, so the pure-black-text prohibition below still applies.)
+
 ### Do Not Use
 - Do not hardcode any hex values in CSS or JS. Always reference a `--token`.
 - Do not add new colors without adding them as a CSS variable in `:root`.
